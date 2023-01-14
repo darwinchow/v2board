@@ -52,8 +52,8 @@ class Clash
             if ($item['type'] === 'v2ray') {
                 $v2ray = self::buildVmess($user['uuid'], $item);
                 if ($v2ray) {
-                array_push($proxy, );
-                array_push($proxies, $item['name']);
+                    array_push($proxy, $v2ray);
+                    array_push($proxies, $item['name']);
                 }
             }
             if ($item['type'] === 'trojan') {
