@@ -53,6 +53,8 @@ class QuantumultX
 
     public static function buildVmess($uuid, $server)
     {
+        if ($server['protocol'] !== 'vmess' && $server['protocol'] !== 'vmess_compatible')
+            return ;
         $config = [
             "vmess={$server['host']}:{$server['port']}",
             'method=chacha20-poly1305',

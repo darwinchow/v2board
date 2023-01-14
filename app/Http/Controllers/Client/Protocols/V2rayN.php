@@ -60,6 +60,8 @@ class V2rayN
 
     public static function buildVmess($uuid, $server)
     {
+        if ($server['protocol'] !== 'vmess' && $server['protocol'] !== 'vmess_compatible')
+            return ;
         $config = [
             "v" => "2",
             "ps" => $server['name'],
