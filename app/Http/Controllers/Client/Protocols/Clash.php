@@ -50,8 +50,11 @@ class Clash
                 array_push($proxies, $item['name']);
             }
             if ($item['type'] === 'v2ray') {
-                array_push($proxy, self::buildVmess($user['uuid'], $item));
+                $v2ray = self::buildVmess($user['uuid'], $item);
+                if ($v2ray) {
+                array_push($proxy, );
                 array_push($proxies, $item['name']);
+                }
             }
             if ($item['type'] === 'trojan') {
                 array_push($proxy, self::buildTrojan($user['uuid'], $item));
@@ -103,7 +106,7 @@ class Clash
     public static function buildVmess($uuid, $server)
     {
         if ($server['protocol'] !== 'vmess' && $server['protocol'] !== 'vmess_compatible')
-            return '';
+            return ;
         $array = [];
         $array['name'] = $server['name'];
         $array['type'] = 'vmess';
