@@ -121,7 +121,8 @@ class Shadowrocket
         $name = rawurlencode($server['name']);
         $query = http_build_query([
             'allowInsecure' => $server['allow_insecure'],
-            'peer' => $server['server_name']
+            'peer' => $server['server_name'],
+            'xtls' => $server['xtls']
         ]);
         $uri = "trojan://{$password}@{$server['host']}:{$server['port']}?{$query}&tfo=1#{$name}";
         $uri .= "\r\n";

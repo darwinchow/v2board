@@ -645,3 +645,6 @@ ALTER TABLE `v2_server_route`
 
 ALTER TABLE `v2_server_v2ray`
     ADD `protocol` text COLLATE 'utf8mb4_general_ci' NOT NULL AFTER `server_port`;
+
+ALTER TABLE `v2_server_trojan`
+    ADD `xtls` text COLLATE 'utf8mb4_general_ci' NOT NULL AFTER `server_port`;
