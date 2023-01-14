@@ -41,8 +41,11 @@ class ClashMeta
                 array_push($proxies, $item['name']);
             }
             if ($item['type'] === 'v2ray') {
-                array_push($proxy, self::buildV2ray($user['uuid'], $item));
-                array_push($proxies, $item['name']);
+                $v2ray = self::buildV2ray($user['uuid'], $item);
+                if ($v2ray) {
+                    array_push($proxy, $v2ray);
+                    array_push($proxies, $item['name']);
+                }
             }
             if ($item['type'] === 'trojan') {
                 array_push($proxy, self::buildTrojan($user['uuid'], $item));
