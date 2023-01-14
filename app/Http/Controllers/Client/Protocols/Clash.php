@@ -102,6 +102,8 @@ class Clash
 
     public static function buildVmess($uuid, $server)
     {
+        if ($server['protocol'] !== 'vmess' && $server['protocol'] !== 'vmess_compatible')
+            return ;
         $array = [];
         $array['name'] = $server['name'];
         $array['type'] = 'vmess';

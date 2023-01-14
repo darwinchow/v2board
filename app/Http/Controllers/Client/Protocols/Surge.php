@@ -104,6 +104,8 @@ class Surge
 
     public static function buildVmess($uuid, $server)
     {
+        if ($server['protocol'] !== 'vmess' && $server['protocol'] !== 'vmess_compatible')
+            return ;
         $config = [
             "{$server['name']}=vmess",
             "{$server['host']}",

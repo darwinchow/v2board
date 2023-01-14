@@ -60,6 +60,8 @@ class SagerNet
 
     public static function buildVmess($uuid, $server)
     {
+        if ($server['protocol'] !== 'vmess' && $server['protocol'] !== 'vmess_compatible')
+            return ;
         $config = [
             "encryption" => "none",
             "type" => urlencode($server['network']),
