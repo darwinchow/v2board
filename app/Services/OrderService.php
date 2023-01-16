@@ -73,6 +73,8 @@ class OrderService
 
         $this->setSpeedLimit($plan->speed_limit);
 
+        $this->setUnlimited($plan->unlimited_enable, $plan->unlimited_speed_limit);
+
         if (!$this->user->save()) {
             DB::rollBack();
             abort(500, '开通失败');
@@ -258,6 +260,12 @@ class OrderService
     private function setSpeedLimit($speedLimit)
     {
         $this->user->speed_limit = $speedLimit;
+    }
+
+    private function setUnlimited($unlimitedEnable, $unlimitedSpeedLimit)
+    {
+        $this->user->unlimited_enable = $unlimitedEnable;
+        $this->user->unlimited_speed_limit = $unlimitedSpeedLimit;
     }
 
     private function buyByResetTraffic()

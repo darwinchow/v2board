@@ -30,7 +30,9 @@ class UserUpdate extends FormRequest
             'commission_type' => 'integer',
             'commission_balance' => 'integer',
             'remarks' => 'nullable',
-            'speed_limit' => 'nullable|integer'
+            'speed_limit' => 'nullable|integer',
+            'unlimited_enable' => 'required|in:0,1',
+            'unlimited_speed_limit' => 'nullable|integer'
         ];
     }
 
@@ -61,7 +63,10 @@ class UserUpdate extends FormRequest
             'balance.integer' => '余额格式不正确',
             'commission_balance.integer' => '佣金格式不正确',
             'password.min' => '密码长度最小8位',
-            'speed_limit.integer' => '限速格式不正确'
+            'speed_limit.integer' => '限速格式不正确',
+            'unlimited_enable.required' => '是否启用流量不限制不能为空',
+            'unlimited_enable.in' => '是否启用流量不限制格式有误',
+            'unlimited_speed_limit.integer' => '流量用尽后限速格式有误'
         ];
     }
 }

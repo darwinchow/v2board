@@ -45,7 +45,9 @@ class PlanController extends Controller
                     User::where('plan_id', $plan->id)->update([
                         'group_id' => $params['group_id'],
                         'transfer_enable' => $params['transfer_enable'] * 1073741824,
-                        'speed_limit' => $params['speed_limit']
+                        'speed_limit' => $params['speed_limit'],
+                        'unlimited_enable' => $params['unlimited_enable'],
+                        'unlimited_speed_limit' => $params['unlimited_speed_limit']
                     ]);
                 }
                 $plan->update($params);
