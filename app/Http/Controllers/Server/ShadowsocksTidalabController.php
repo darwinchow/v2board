@@ -41,6 +41,12 @@ class ShadowsocksTidalabController extends Controller
         $users = $serverService->getAvailableUsers($server->group_id);
         $result = [];
         foreach ($users as $user) {
+            //处理不限制流量速率
+            if (isset($user['unlimited_speed_limit']) && !empty($user['unlimited_speed_limit'])) {
+                $user['speed_limit'] = $user['unlimited_speed_limit'];
+                unset($user['unlimited_speed_limit']);
+            }
+            
             array_push($result, [
                 'id' => $user->id,
                 'port' => $server->server_port,
