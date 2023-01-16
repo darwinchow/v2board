@@ -18,6 +18,8 @@ class PlanSave extends FormRequest
             'content' => '',
             'group_id' => 'required',
             'transfer_enable' => 'required',
+            'unlimited_enable' => 'required|in:0,1',
+            'unlimited_speed_limit' => 'nullable|integer',
             'month_price' => 'nullable|integer',
             'quarter_price' => 'nullable|integer',
             'half_year_price' => 'nullable|integer',
@@ -51,7 +53,10 @@ class PlanSave extends FormRequest
             'reset_traffic_method.integer' => '流量重置方式格式有误',
             'reset_traffic_method.in' => '流量重置方式格式有误',
             'capacity_limit.integer' => '容纳用户量限制格式有误',
-            'speed_limit.integer' => '限速格式有误'
+            'speed_limit.integer' => '限速格式有误',
+            'unlimited_enable.required' => '是否启用流量不限制不能为空',
+            'unlimited_enable.in' => '是否启用流量不限制格式有误',
+            'unlimited_speed_limit.integer' => '流量用尽后限速格式有误'
         ];
     }
 }
