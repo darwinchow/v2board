@@ -44,6 +44,13 @@ class UniProxyController extends Controller
         $users = $this->serverService->getAvailableUsers($this->nodeInfo->group_id);
         $users = $users->toArray();
 
+        //处理不限制流量速率
+        foreach (array_keys($users) as $item) {
+            if (isset($item['unlimited_speed_limit']) && !empty($item['unlimited_speed_limit'])) {
+                $users[$item]['speed_limit'] = $item['unlimited_speed_limit'];
+            }
+        }
+
         $response['users'] = $users;
 
         $eTag = sha1(json_encode($response));

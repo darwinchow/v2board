@@ -137,7 +137,7 @@ class ServerService
                         'unlimited_speed_limit'
                     ])
                     ->get();
-        return array_merge($commonUsers, $unlimitedUsers);
+        return $commonUsers->merge($unlimitedUsers);
     }
 
     public function log(int $userId, int $serverId, int $u, int $d, float $rate, string $method)
