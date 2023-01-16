@@ -651,8 +651,8 @@ ALTER TABLE `v2_server_trojan`
 
 ALTER TABLE `v2_plan`
     ADD `unlimited_enable` tinyint(1) COLLATE 'utf8mb4_general_ci' NOT NULL DEFAULT '0' AFTER `transfer_enable`,
-    ADD `unlimited_speed_limit` int(11) COLLATE 'utf8mb4_general_ci' DEFAULT NULL AFTER `transfer_enable`;
+    ADD `unlimited_speed_limit` int(11) COLLATE 'utf8mb4_general_ci' DEFAULT NULL AFTER `unlimited_enable`;
 
 ALTER TABLE `v2_user`
     ADD `unlimited_enable` tinyint(1) COLLATE 'utf8mb4_general_ci' NOT NULL DEFAULT '0' AFTER `transfer_enable`,
-    ADD `unlimited_speed_limit` int(11) COLLATE 'utf8mb4_general_ci' DEFAULT NULL AFTER `transfer_enable`;
+    ADD `unlimited_speed_limit` int(11) COLLATE 'utf8mb4_general_ci' DEFAULT NULL AFTER `unlimited_enable`;
