@@ -110,19 +110,34 @@ class ServerService
 
     public function getAvailableUsers($groupId)
     {
-        return User::whereIn('group_id', $groupId)
-            ->whereRaw('u + d < transfer_enable')
-            ->where(function ($query) {
-                $query->where('expired_at', '>=', time())
-                    ->orWhere('expired_at', NULL);
-            })
-            ->where('banned', 0)
-            ->select([
-                'id',
-                'uuid',
-                'speed_limit'
-            ])
-            ->get();
+        $commonUsers = User::whereIn('group_id', $groupId)
+                    ->whereRaw('u + d < transfer_enable')
+                    ->where(function ($query) {
+                        $query->where('expired_at', '>=', time())
+                            ->orWhere('expired_at', NULL);
+                    })
+                    ->where('banned', 0)
+                    ->select([
+                        'id',
+                        'uuid',
+                        'speed_limit'
+                    ])
+                    ->get();
+        $unlimitedUsers = User::whereIn('group_id', $groupId)
+                    ->whereRaw('u + d >= transfer_enable')
+                    ->where(function ($query) {
+                        $query->where('expired_at', '>=', time())
+                            ->orWhere('expired_at', NULL);
+                    })
+                    ->where('banned', 0)
+                    ->where('unlimited_enable', 1)
+                    ->select([
+                        'id',
+                        'uuid',
+                        'unlimited_speed_limit'
+                    ])
+                    ->get();
+        return array_merge($commonUsers, $unlimitedUsers);
     }
 
     public function log(int $userId, int $serverId, int $u, int $d, float $rate, string $method)

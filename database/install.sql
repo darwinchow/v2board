@@ -162,6 +162,8 @@ CREATE TABLE `v2_plan` (
                            `id` int(11) NOT NULL AUTO_INCREMENT,
                            `group_id` int(11) NOT NULL,
                            `transfer_enable` int(11) NOT NULL,
+                           `unlimited_enable` tinyint(1) NOT NULL DEFAULT '0',
+                           `unlimited_speed_limit` int(11) DEFAULT NULL,
                            `speed_limit` int(11) DEFAULT NULL,
                            `name` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
                            `show` tinyint(1) NOT NULL DEFAULT '0',
@@ -378,6 +380,8 @@ CREATE TABLE `v2_user` (
                            `u` bigint(20) NOT NULL DEFAULT '0',
                            `d` bigint(20) NOT NULL DEFAULT '0',
                            `transfer_enable` bigint(20) NOT NULL DEFAULT '0',
+                           `unlimited_enable` tinyint(1) NOT NULL DEFAULT '0',
+                           `unlimited_speed_limit` int(11) DEFAULT NULL,
                            `banned` tinyint(1) NOT NULL DEFAULT '0',
                            `is_admin` tinyint(1) NOT NULL DEFAULT '0',
                            `is_staff` tinyint(1) NOT NULL DEFAULT '0',
@@ -399,4 +403,4 @@ CREATE TABLE `v2_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
--- 2022-12-15 05:24:08
+-- 2023-01-16 21:40:35
