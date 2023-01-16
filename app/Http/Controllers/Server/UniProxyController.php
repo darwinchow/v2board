@@ -45,10 +45,10 @@ class UniProxyController extends Controller
         $users = $users->toArray();
 
         //处理不限制流量速率
-        foreach ($users as $user) {
-            if (isset($user['unlimited_speed_limit']) && !empty($user['unlimited_speed_limit'])) {
-                $user['speed_limit'] = $user['unlimited_speed_limit'];
-                unset($user['unlimited_speed_limit']);
+        foreach (array_keys($users) as $item) {
+            if (isset($users[$item]['unlimited_speed_limit']) && !empty($users[$item]['unlimited_speed_limit'])) {
+                $users[$item]['speed_limit'] = $users[$item]['unlimited_speed_limit'];
+                unset($users[$item]['unlimited_speed_limit']);
             }
         }
 
