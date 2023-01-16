@@ -46,6 +46,12 @@ class DeepbworkController extends Controller
         $users = $serverService->getAvailableUsers($server->group_id);
         $result = [];
         foreach ($users as $user) {
+            //处理不限制流量速率
+            if (isset($user['unlimited_speed_limit']) && !empty($user['unlimited_speed_limit'])) {
+                $user['speed_limit'] = $user['unlimited_speed_limit'];
+                unset($user['unlimited_speed_limit']);
+            }
+            
             $user->v2ray_user = [
                 "uuid" => $user->uuid,
                 "email" => sprintf("%s@v2board.user", $user->uuid),
