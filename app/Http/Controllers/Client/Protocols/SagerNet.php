@@ -8,10 +8,11 @@ class SagerNet
     private $servers;
     private $user;
 
-    public function __construct($user, $servers)
+    public function __construct($user, $servers, $xray_enable)
     {
         $this->user = $user;
         $this->servers = $servers;
+        $this->xray_enable = $xray_enable;
     }
 
     public function handle()
@@ -22,7 +23,7 @@ class SagerNet
 
         foreach ($servers as $item) {
             if ($item['type'] === 'v2ray') {
-                $uri .= self::buildVmess($user['uuid'], $item);
+                $uri .= self::buildV2ray($user['uuid'], $item);
             }
             if ($item['type'] === 'shadowsocks') {
                 $uri .= self::buildShadowsocks($user['uuid'], $item);
@@ -58,9 +59,9 @@ class SagerNet
         return $config;
     }
 
-    public static function buildVmess($uuid, $server)
+    public static function buildV2ray($uuid, $server)
     {
-        if ($server['protocol'] !== 'vmess' && $server['protocol'] !== 'vmess_compatible')
+        if ($server['protocol'] === 'vmess_compatible')
             return ;
         $config = [
             "encryption" => "none",
@@ -83,7 +84,7 @@ class SagerNet
             $grpcSettings = $server['networkSettings'];
             if (isset($grpcSettings['serviceName'])) $config['serviceName'] = urlencode($grpcSettings['serviceName']);
         }
-        return "vmess://" . $uuid . "@" . $server['host'] . ":" . $server['port'] . "?" . http_build_query($config) . "#" . urlencode($server['name']) . "\r\n";
+        return ($server['protocol'] === 'auto') ? "vless" : $server['protocol'] . "://" . $uuid . "@" . $server['host'] . ":" . $server['port'] . "?" . http_build_query($config) . "#" . urlencode($server['name']) . "\r\n";
     }
 
     public static function buildTrojan($uuid, $server)
