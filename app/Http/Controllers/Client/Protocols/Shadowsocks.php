@@ -8,10 +8,11 @@ class Shadowsocks
     private $servers;
     private $user;
 
-    public function __construct($user, $servers)
+    public function __construct($user, $servers, $xray_enable)
     {
         $this->user = $user;
         $this->servers = $servers;
+        $this->xray_enable = $xray_enable;
     }
 
     public function handle()

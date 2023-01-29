@@ -11,10 +11,11 @@ class V2rayN
     private $servers;
     private $user;
 
-    public function __construct($user, $servers)
+    public function __construct($user, $servers, $xray_enable)
     {
         $this->user = $user;
         $this->servers = $servers;
+        $this->xray_enable = $xray_enable;
     }
 
     public function handle()
@@ -25,7 +26,7 @@ class V2rayN
 
         foreach ($servers as $item) {
             if ($item['type'] === 'v2ray') {
-                $uri .= self::buildVmess($user['uuid'], $item);
+                $uri .= self::buildV2ray($user['uuid'], $item);
             }
             if ($item['type'] === 'shadowsocks') {
                 $uri .= self::buildShadowsocks($user['uuid'], $item);
@@ -58,10 +59,11 @@ class V2rayN
         return "ss://{$str}@{$server['host']}:{$server['port']}#{$name}\r\n";
     }
 
-    public static function buildVmess($uuid, $server)
+    public static function buildV2ray($uuid, $server)
     {
-        if ($server['protocol'] !== 'vmess' && $server['protocol'] !== 'vmess_compatible')
-            return ;
+        if ($server['protocol'] !== 'auto' && $server['protocol'] !== 'vmess' && $server['protocol'] !== 'vmess_compatible')
+            if ($this->xray_enable !== true)
+                return ;
         $config = [
             "v" => "2",
             "ps" => $server['name'],
@@ -91,7 +93,7 @@ class V2rayN
             $grpcSettings = $server['networkSettings'];
             if (isset($grpcSettings['serviceName'])) $config['path'] = $grpcSettings['serviceName'];
         }
-        return "vmess://" . base64_encode(json_encode($config)) . "\r\n";
+        return ($server['protocol'] === 'auto' || $server['protocol'] === 'vless' && $this->xray_enable === true) ? "vless" : "vmess" . "://" . base64_encode(json_encode($config)) . "\r\n";
     }
 
     public static function buildTrojan($password, $server)

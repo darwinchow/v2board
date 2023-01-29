@@ -9,10 +9,11 @@ class QuantumultX
     private $servers;
     private $user;
 
-    public function __construct($user, $servers)
+    public function __construct($user, $servers, $xray_enable)
     {
         $this->user = $user;
         $this->servers = $servers;
+        $this->xray_enable = $xray_enable;
     }
 
     public function handle()
@@ -26,7 +27,7 @@ class QuantumultX
                 $uri .= self::buildShadowsocks($user['uuid'], $item);
             }
             if ($item['type'] === 'v2ray') {
-                $uri .= self::buildVmess($user['uuid'], $item);
+                $uri .= self::buildV2ray($user['uuid'], $item);
             }
             if ($item['type'] === 'trojan') {
                 $uri .= self::buildTrojan($user['uuid'], $item);
@@ -51,9 +52,9 @@ class QuantumultX
         return $uri;
     }
 
-    public static function buildVmess($uuid, $server)
+    public static function buildV2ray($uuid, $server)
     {
-        if ($server['protocol'] !== 'vmess' && $server['protocol'] !== 'vmess_compatible')
+        if ($server['protocol'] !== 'auto' && $server['protocol'] !== 'vmess' && $server['protocol'] !== 'vmess_compatible')
             return ;
         $config = [
             "vmess={$server['host']}:{$server['port']}",
