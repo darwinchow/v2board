@@ -10,10 +10,11 @@ class Stash
     private $servers;
     private $user;
 
-    public function __construct($user, $servers)
+    public function __construct($user, $servers, $xray_enable)
     {
         $this->user = $user;
         $this->servers = $servers;
+        $this->xray_enable = $xray_enable;
     }
 
     public function handle()
@@ -107,7 +108,7 @@ class Stash
             return ;
         $array = [];
         $array['name'] = $server['name'];
-        $array['type'] = $server['protocol'];
+        $array['type'] = ($server['protocol'] === 'auto') ? "vless" : $server['protocol'];
         $array['server'] = $server['host'];
         $array['port'] = $server['port'];
         $array['uuid'] = $uuid;
