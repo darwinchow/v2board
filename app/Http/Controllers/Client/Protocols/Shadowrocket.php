@@ -80,7 +80,7 @@ class Shadowrocket
             $config['tls'] = 1;
             if ($server['tlsSettings']) {
                 $tlsSettings = $server['tlsSettings'];
-                if ($server['protocol'] === 'vless' && isset($tlsSettings['xtls']) && !empty($tlsSettings['xtls']))
+                if (($server['protocol'] === 'auto' || $server['protocol'] === 'vless') && isset($tlsSettings['xtls']) && !empty($tlsSettings['xtls']))
                     $config['xtls'] = (int)$tlsSettings['xtls'];
                 if (isset($tlsSettings['allowInsecure']) && !empty($tlsSettings['allowInsecure']))
                     $config['allowInsecure'] = (int)$tlsSettings['allowInsecure'];
