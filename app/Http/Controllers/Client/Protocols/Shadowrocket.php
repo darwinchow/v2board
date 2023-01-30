@@ -112,7 +112,7 @@ class Shadowrocket
             }
         }
         $query = http_build_query($config, '', '&', PHP_QUERY_RFC3986);
-        $uri = ($server['protocol'] === 'auto') ? "vless" : $server['protocol'] . "://{$userinfo}?{$query}";
+        $uri = (($server['protocol'] === 'auto') ? "vless" : $server['protocol']) . "://{$userinfo}?{$query}";
         $uri .= "\r\n";
         return $uri;
     }
