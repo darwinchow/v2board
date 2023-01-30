@@ -93,7 +93,7 @@ class V2rayN
             $grpcSettings = $server['networkSettings'];
             if (isset($grpcSettings['serviceName'])) $config['path'] = $grpcSettings['serviceName'];
         }
-        return ($server['protocol'] === 'auto' || $server['protocol'] === 'vless' && $this->xray_enable === true) ? "vless" : "vmess" . "://" . base64_encode(json_encode($config)) . "\r\n";
+        return (($server['protocol'] === 'auto' || $server['protocol'] === 'vless' && $this->xray_enable === true) ? "vless" : "vmess") . "://" . base64_encode(json_encode($config)) . "\r\n";
     }
 
     public static function buildTrojan($password, $server)

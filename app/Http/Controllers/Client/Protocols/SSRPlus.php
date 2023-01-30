@@ -80,7 +80,7 @@ class SSRPlus
             $grpcSettings = $server['networkSettings'];
             if (isset($grpcSettings['serviceName'])) $config['path'] = $grpcSettings['serviceName'];
         }
-        return ($server['protocol'] === 'auto') ? "vless" : $server['protocol'] . "://" . base64_encode(json_encode($config)) . "\r\n";
+        return (($server['protocol'] === 'auto') ? "vless" : $server['protocol']) . "://" . base64_encode(json_encode($config)) . "\r\n";
     }
 
     public static function buildTrojan($password, $server)

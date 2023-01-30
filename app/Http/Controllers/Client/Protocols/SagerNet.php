@@ -84,7 +84,7 @@ class SagerNet
             $grpcSettings = $server['networkSettings'];
             if (isset($grpcSettings['serviceName'])) $config['serviceName'] = urlencode($grpcSettings['serviceName']);
         }
-        return ($server['protocol'] === 'auto') ? "vless" : $server['protocol'] . "://" . $uuid . "@" . $server['host'] . ":" . $server['port'] . "?" . http_build_query($config) . "#" . urlencode($server['name']) . "\r\n";
+        return (($server['protocol'] === 'auto') ? "vless" : $server['protocol']) . "://" . $uuid . "@" . $server['host'] . ":" . $server['port'] . "?" . http_build_query($config) . "#" . urlencode($server['name']) . "\r\n";
     }
 
     public static function buildTrojan($uuid, $server)
