@@ -128,7 +128,7 @@ class ClashMeta
             $array['tls'] = true;
             if ($server['tlsSettings']) {
                 $tlsSettings = $server['tlsSettings'];
-                if ($server['protocol'] === 'vless' && isset($tlsSettings['xtls']) && !empty($tlsSettings['xtls'] && $tlsSettings['xtls'] === 1))
+                if (($server['protocol'] === 'auto' || $server['protocol'] === 'vless') && isset($tlsSettings['xtls']) && !empty($tlsSettings['xtls'] && $tlsSettings['xtls'] === 1))
                     $array['flow'] = 'xtls-rprx-direct';
                 if (isset($tlsSettings['allowInsecure']) && !empty($tlsSettings['allowInsecure']))
                     $array['skip-cert-verify'] = ($tlsSettings['allowInsecure'] ? true : false);
