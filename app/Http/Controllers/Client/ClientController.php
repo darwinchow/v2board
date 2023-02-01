@@ -33,7 +33,7 @@ class ClientController extends Controller
                 }
             }
             // todo 1.5.3 remove
-            $class = new V2rayN($user, $servers);
+            $class = new V2rayN($user, $servers, $xray_enable);
             die($class->handle());
             die('该客户端暂不支持进行订阅');
         }
