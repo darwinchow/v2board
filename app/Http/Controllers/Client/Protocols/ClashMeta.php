@@ -10,6 +10,7 @@ class ClashMeta
     public $flag = 'clashmeta';
     private $servers;
     private $user;
+    private $xray_enable;
 
     public function __construct($user, $servers, $xray_enable)
     {

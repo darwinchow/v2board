@@ -10,6 +10,7 @@ class V2rayN
     public $flag = 'v2rayn';
     private $servers;
     private $user;
+    private $xray_enable;
 
     public function __construct($user, $servers, $xray_enable)
     {
