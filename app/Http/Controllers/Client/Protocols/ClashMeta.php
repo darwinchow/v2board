@@ -43,7 +43,7 @@ class ClashMeta
                 array_push($proxies, $item['name']);
             }
             if ($item['type'] === 'v2ray') {
-                $v2ray = self::buildV2ray($user['uuid'], $item);
+                $v2ray = self::buildV2ray($user['uuid'], $item, $this->xray_enable);
                 if ($v2ray) {
                     array_push($proxy, $v2ray);
                     array_push($proxies, $item['name']);
@@ -106,7 +106,7 @@ class ClashMeta
         return $array;
     }
 
-    public static function buildV2ray($uuid, $server)
+    public static function buildV2ray($uuid, $server, $xray_enable)
     {
         if ($server['protocol'] === 'vmess_compatible')
             return ;

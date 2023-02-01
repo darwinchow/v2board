@@ -25,7 +25,7 @@ class SSRPlus
 
         foreach ($servers as $item) {
             if ($item['type'] === 'v2ray') {
-                $uri .= self::buildV2ray($user['uuid'], $item);
+                $uri .= self::buildV2ray($user['uuid'], $item, $this->xray_enable);
             }
             if ($item['type'] === 'shadowsocks') {
                 $uri .= self::buildShadowsocks($user['uuid'], $item);
@@ -48,7 +48,7 @@ class SSRPlus
         return "ss://{$str}@{$server['host']}:{$server['port']}#{$name}\r\n";
     }
 
-    public static function buildV2ray($uuid, $server)
+    public static function buildV2ray($uuid, $server, $xray_enable)
     {
         if ($server['protocol'] === 'vmess_compatible')
             return ;
