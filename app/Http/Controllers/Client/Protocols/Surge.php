@@ -45,7 +45,7 @@ class Surge
             }
             if ($item['type'] === 'v2ray') {
                 // [Proxy]
-                $proxies .= self::buildV2ray($user['uuid'], $item);
+                $proxies .= self::buildV2ray($user['uuid'], $item, $this->xray_enable);
                 // [Proxy Group]
                 $proxyGroup .= $item['name'] . ', ';
             }
@@ -104,7 +104,7 @@ class Surge
         return $uri;
     }
 
-    public static function buildV2ray($uuid, $server)
+    public static function buildV2ray($uuid, $server, $xray_enable)
     {
         if ($server['protocol'] !== 'auto' && $server['protocol'] !== 'vmess' && $server['protocol'] !== 'vmess_compatible')
             return ;

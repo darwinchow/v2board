@@ -28,7 +28,7 @@ class QuantumultX
                 $uri .= self::buildShadowsocks($user['uuid'], $item);
             }
             if ($item['type'] === 'v2ray') {
-                $uri .= self::buildV2ray($user['uuid'], $item);
+                $uri .= self::buildV2ray($user['uuid'], $item, $this->xray_enable);
             }
             if ($item['type'] === 'trojan') {
                 $uri .= self::buildTrojan($user['uuid'], $item);
@@ -53,7 +53,7 @@ class QuantumultX
         return $uri;
     }
 
-    public static function buildV2ray($uuid, $server)
+    public static function buildV2ray($uuid, $server, $xray_enable)
     {
         if ($server['protocol'] !== 'auto' && $server['protocol'] !== 'vmess' && $server['protocol'] !== 'vmess_compatible')
             return ;

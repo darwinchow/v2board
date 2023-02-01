@@ -52,7 +52,7 @@ class Clash
                 array_push($proxies, $item['name']);
             }
             if ($item['type'] === 'v2ray') {
-                $v2ray = self::buildV2ray($user['uuid'], $item);
+                $v2ray = self::buildV2ray($user['uuid'], $item, $this->xray_enable);
                 if ($v2ray) {
                     array_push($proxy, $v2ray);
                     array_push($proxies, $item['name']);
@@ -105,14 +105,14 @@ class Clash
         return $array;
     }
 
-    public static function buildV2ray($uuid, $server)
+    public static function buildV2ray($uuid, $server, $xray_enable)
     {
         if ($server['protocol'] !== 'auto' && $server['protocol'] !== 'vmess' && $server['protocol'] !== 'vmess_compatible')
-            if ($this->xray_enable !== true)
+            if ($xray_enable !== true)
                 return ;
         $array = [];
         $array['name'] = $server['name'];
-        if ($server['protocol'] === 'vless' || $server['protocol'] === 'auto' && $this->xray_enable === true)
+        if ($server['protocol'] === 'vless' || $server['protocol'] === 'auto' && $xray_enable === true)
             $array['type'] = 'vless';
         else
             $array['type'] = 'vmess';
@@ -128,7 +128,7 @@ class Clash
             if ($server['tlsSettings']) {
                 $tlsSettings = $server['tlsSettings'];
                 if (
-                    (($server['protocol'] === 'auto' && $this->xray_enable === true) || $server['protocol'] === 'vless')
+                    ($server['protocol'] === 'vless' || $server['protocol'] === 'auto' && $xray_enable === true)
                     && isset($tlsSettings['xtls'])
                     && !empty($tlsSettings['xtls'])
                     && $tlsSettings['xtls'] === 1

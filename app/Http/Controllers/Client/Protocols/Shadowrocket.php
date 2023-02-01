@@ -35,7 +35,7 @@ class Shadowrocket
                 $uri .= self::buildShadowsocks($user['uuid'], $item);
             }
             if ($item['type'] === 'v2ray') {
-                $uri .= self::buildV2ray($user['uuid'], $item);
+                $uri .= self::buildV2ray($user['uuid'], $item, $this->xray_enable);
             }
             if ($item['type'] === 'trojan') {
                 $uri .= self::buildTrojan($user['uuid'], $item);
@@ -66,7 +66,7 @@ class Shadowrocket
         return "ss://{$str}@{$server['host']}:{$server['port']}#{$name}\r\n";
     }
 
-    public static function buildV2ray($uuid, $server)
+    public static function buildV2ray($uuid, $server, $xray_enable)
     {
         if ($server['protocol'] === 'vmess_compatible')
             return ;
