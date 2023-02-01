@@ -62,9 +62,11 @@ class V2rayN
 
     public static function buildV2ray($uuid, $server, $xray_enable)
     {
-        if ($server['protocol'] !== 'auto' && $server['protocol'] !== 'vmess' && $server['protocol'] !== 'vmess_compatible')
-            if ($xray_enable !== true)
-                return ;
+        if (
+            $xray_enable !== false && $server['protocol'] === 'vmess_compatible'
+            || $xray_enable !== true && $server['protocol'] === 'vless'
+        )
+            return ;
         $config = [
             "v" => "2",
             "ps" => $server['name'],
