@@ -8,6 +8,7 @@ class SSRPlus
     public $flag = 'ssrplus';
     private $servers;
     private $user;
+    private $xray_enable;
 
     public function __construct($user, $servers, $xray_enable)
     {

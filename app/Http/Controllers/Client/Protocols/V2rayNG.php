@@ -8,6 +8,7 @@ class V2rayNG
     public $flag = 'v2rayng';
     private $servers;
     private $user;
+    private $xray_enable;
 
     public function __construct($user, $servers, $xray_enable)
     {

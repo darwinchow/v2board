@@ -11,6 +11,7 @@ class Clash
     public $flag = 'clash';
     private $servers;
     private $user;
+    private $xray_enable;
 
     public function __construct($user, $servers, $xray_enable)
     {
@@ -126,7 +127,12 @@ class Clash
             $array['tls'] = true;
             if ($server['tlsSettings']) {
                 $tlsSettings = $server['tlsSettings'];
-                if ((($server['protocol'] === 'auto' && $this->xray_enable === true) || $server['protocol'] === 'vless') && isset($tlsSettings['xtls']) && !empty($tlsSettings['xtls'] && $tlsSettings['xtls'] === 1))
+                if (
+                    (($server['protocol'] === 'auto' && $this->xray_enable === true) || $server['protocol'] === 'vless')
+                    && isset($tlsSettings['xtls'])
+                    && !empty($tlsSettings['xtls'])
+                    && $tlsSettings['xtls'] === 1
+                )
                     $array['flow'] = 'xtls-rprx-direct';
                 if (isset($tlsSettings['allowInsecure']) && !empty($tlsSettings['allowInsecure']))
                     $array['skip-cert-verify'] = ($tlsSettings['allowInsecure'] ? true : false);
